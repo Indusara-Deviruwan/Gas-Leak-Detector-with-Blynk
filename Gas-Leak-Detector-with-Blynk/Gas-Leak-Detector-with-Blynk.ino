@@ -5,6 +5,22 @@
 #include <ESP8266WiFi.h>
 #include <BlynkSimpleEsp8266.h>
 
+char auth[] = BLYNK_AUTH_TOKEN;
+char ssid[] = "TECNO SPARK Go 2024";
+char pass[] = "12345678";
+
+#define GAS_SENSOR A0
+#define BUZZER D3
+#define RED_LED D1
+#define GREEN_LED D2
+#define RESET_BTN D4
+
+int GAS_THRESHOLD = 500;
+bool alarmActive = false;
+
+BlynkTimer timer;
+
+
 void setup() {
   // put your setup code here, to run once:
 
