@@ -59,10 +59,41 @@ void readGas() {
   }
 }
 
-
+// Setup
 void setup() {
-  // put your setup code here, to run once:
+  Serial.begin(9600);
 
+  pinMode(BUZZER, OUTPUT);
+  pinMode(RED_LED, OUTPUT);
+  pinMode(GREEN_LED, OUTPUT);
+  pinMode(RESET_BTN, INPUT_PULLUP); // reset button active low
+
+  digitalWrite(BUZZER, LOW);
+  digitalWrite(RED_LED, LOW);
+  digitalWrite(GREEN_LED, HIGH); // green on initially
+
+  Serial.println("=== Gas Leak Detector Initialized ===");
+  Serial.println("Green LED on. Waiting for gas leak detection.");
+
+  Serial.print("Connecting to WiFi: ");
+  Serial.println(ssid);
+
+  WiFi.begin(ssid, pass);
+
+  // Wait for WiFi to connect
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(500); // wait 500 ms
+  }
+
+  Serial.println("\n✅ WiFi connected!");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  // Connect to Blynk
+  Blynk.begin(auth, ssid, pass);
+
+  timer.setInterval(1000L, readGas); // check every 1s
 }
 
 void loop() {
