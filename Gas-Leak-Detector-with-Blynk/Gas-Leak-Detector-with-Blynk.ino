@@ -6,8 +6,8 @@
 #include <BlynkSimpleEsp8266.h>
 
 char auth[] = BLYNK_AUTH_TOKEN;
-char ssid[] = "TECNO SPARK Go 2024";
-char pass[] = "12345678";
+char ssid[] = "your ssid name";
+char pass[] = "your password";
 
 #define GAS_SENSOR A0
 #define BUZZER D3
