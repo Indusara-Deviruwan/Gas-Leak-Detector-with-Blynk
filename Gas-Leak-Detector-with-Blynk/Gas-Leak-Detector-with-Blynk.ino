@@ -2,6 +2,8 @@
 #define BLYNK_TEMPLATE_NAME "Gas Leak Detector"
 #define BLYNK_AUTH_TOKEN "RqbikRg-eqq5ooUAU-LHrf8-L9rR9yQy"
 
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
 
 void setup() {
   // put your setup code here, to run once:
