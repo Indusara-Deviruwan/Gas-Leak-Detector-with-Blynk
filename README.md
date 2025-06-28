@@ -1,1 +1,1 @@
-# Gas-Leak-Detector-with-Blynk-Dashboard
+# Gas Leak Detector using Nodemcu-8266(Lolin) microcontroller + Blynk App
