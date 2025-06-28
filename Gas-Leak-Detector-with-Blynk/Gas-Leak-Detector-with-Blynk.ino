@@ -20,6 +20,45 @@ bool alarmActive = false;
 
 BlynkTimer timer;
 
+void readGas() {
+  int gasValue = analogRead(GAS_SENSOR); // read gas level
+  Blynk.virtualWrite(V0, gasValue);       // send gas level to Blynk
+
+  Serial.print("Gas value: ");
+  Serial.println(gasValue);
+
+  // Check reset button
+  if (digitalRead(RESET_BTN) == LOW) {
+    alarmActive = false;
+    Serial.println("Alarm reset manually.");
+  }
+
+  if (gasValue > GAS_THRESHOLD) {
+    alarmActive = true;
+    digitalWrite(BUZZER, HIGH);
+    digitalWrite(RED_LED, HIGH);
+    digitalWrite(GREEN_LED, LOW);
+
+    Blynk.virtualWrite(V1, "🚨 Danger");
+    Blynk.virtualWrite(V2, 1); // Red LED status
+    Blynk.virtualWrite(V3, 0); // Green LED status
+    Blynk.logEvent("gas_alert", "🚨 Gas Leak Detected!");
+
+    Serial.println("🚨 Gas leak detected!");
+  } else {
+    alarmActive = false;
+    digitalWrite(BUZZER, LOW);
+    digitalWrite(RED_LED, LOW);
+    digitalWrite(GREEN_LED, HIGH);
+
+    Blynk.virtualWrite(V1, "✅ Safe");
+    Blynk.virtualWrite(V2, 0); // Red LED off
+    Blynk.virtualWrite(V3, 1); // Green LED on
+
+    Serial.println("Gas is safe ✅");
+  }
+}
+
 
 void setup() {
   // put your setup code here, to run once:
