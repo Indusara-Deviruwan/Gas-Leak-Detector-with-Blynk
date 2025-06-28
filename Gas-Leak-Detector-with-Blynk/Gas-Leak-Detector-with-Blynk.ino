@@ -96,7 +96,15 @@ void setup() {
   timer.setInterval(1000L, readGas); // check every 1s
 }
 
+// Main Loop
 void loop() {
-  // put your main code here, to run repeatedly:
+  Blynk.run();
+  timer.run();
 
+  // Print WiFi status continuously if needed
+  if (WiFi.status() != WL_CONNECTED) {
+    Serial.println("⚠️ Lost WiFi connection, attempting to reconnect...");
+    WiFi.reconnect();
+    delay(1000);
+  }
 }
